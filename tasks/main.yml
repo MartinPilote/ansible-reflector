@@ -1,3 +1,4 @@
+---
 - name: Reflector
   block:
 
@@ -25,3 +26,4 @@
         
   when:
     - ansible_os_family == "Archlinux"
+...
