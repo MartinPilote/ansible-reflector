@@ -1,0 +1,27 @@
+- name: Reflector
+  block:
+
+    - include_vars: "main.yml"
+
+    - name: Reflector | Install package
+      package:
+        state: latest
+        name:
+          - reflector
+
+    - name: Reflector | Copy config
+      template:
+        src: reflector.j2
+        dest: /etc/xdg/reflector/reflector.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: System Setup | Reflector | Enable Service
+      systemd:
+        name: reflector.timer
+        state: started
+        enabled: yes
+        
+  when:
+    - ansible_os_family == "Archlinux"
